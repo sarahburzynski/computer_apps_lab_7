@@ -79,8 +79,17 @@ r2 = r2_score(y_test, y_pred)
 
 st.subheader("Model Performance")
 
-st.write("Mean Absolute Error (MAE):", round(mae, 2))
-st.write("R² Score:", round(r2, 3))
+col1, col2 = st.columns(2)
+
+col1.metric(
+    label="MAE (Mean Absolute Error)",
+    value=f"${mae:,.2f}"
+)
+
+col2.metric(
+    label="R² Score",
+    value=f"{r2:.3f}"
+)
 
 
 # -----------------------------
@@ -99,9 +108,23 @@ acres = st.number_input("CALC_ACRES")
 # -----------------------------
 if st.button("Predict Appraised Value"):
 
-    prediction = model.predict([[land_value, build_value, yard_value, acres]])
+    input_data = [[land_value, build_value, yard_value, acres]]
 
-    st.success(f"Predicted APPRAISED_VALUE: ${prediction[0]:,.2f}")
+    prediction = model.predict(input_data)
+
+    st.subheader("Prediction Result")
+
+    st.metric(
+        label="Estimated Property Value",
+        value=f"${prediction[0]:,.2f}"
+    )
+
+    st.write("### Input Summary")
+
+    st.write(f"Land Value: ${land_value:,.2f}")
+    st.write(f"Building Value: ${build_value:,.2f}")
+    st.write(f"Yard Items Value: ${yard_value:,.2f}")
+    st.write(f"Parcel Size (Acres): {acres}")
 
 
 # -----------------------------
