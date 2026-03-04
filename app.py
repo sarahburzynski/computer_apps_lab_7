@@ -101,19 +101,19 @@ yard_value = st.number_input("YARDITEMS_VALUE", min_value=0.0, value=0.0, step=5
 acres = st.number_input("CALC_ACRES", min_value=0.0, value=0.0, step=0.01)
 
 if st.button("Predict Appraised Value"):
+
     pred = model.predict([[land_value, build_value, yard_value, acres]])[0]
 
-# Use MAE if available, otherwise default
-error_margin = mae if 'mae' in globals() else 0
+    error_margin = mae
 
-low = pred - error_margin
-high = pred + error_margin
+    low = pred - error_margin
+    high = pred + error_margin
 
-st.subheader("Estimated Property Value")
+    st.subheader("Estimated Property Value")
 
-col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
 
-col1.metric(
+   col1.metric(
     label="Predicted Value",
     value=f"${pred:,.0f}"
 )
