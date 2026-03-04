@@ -113,12 +113,12 @@ if st.button("Predict Appraised Value"):
 
     col1, col2 = st.columns(2)
 
-   col1.metric(
+    col1.metric(
     label="Predicted Value",
     value=f"${pred:,.0f}"
 )
 
-col2.metric(
+    col2.metric(
     label="Estimated Range",
     value=f"${low:,.0f} – ${high:,.0f}"
 )
